@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-LKPD Sistem Imun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .section-title {
+            color: #667eea;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .tujuan-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tujuan-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+        }
+        
+        .tujuan-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .konsep-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .konsep-box h4 {
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+        
+        .konsep-box p {
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .organ-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .organ-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .organ-card h5 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .case-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .case-title {
+            color: #856404;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .data-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .data-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .data-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .question-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+        }
+        
+        .question-number {
+            background: #28a745;
+            color: white;
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .question-text {
+            font-size: 16px;
+            color: #333;
+            margin: 15px 0;
+            line-height: 1.8;
+        }
+        
+        textarea {
+            width: 100%;
+            min-height: 100px;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            margin-top: 10px;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #667eea;
+            font-size: 16px;
+            background: transparent;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-bottom: 2px solid #764ba2;
+        }
+        
+        .media-box {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 10px;
+            margin: 15px 0;
+            background: #000;
+        }
+        
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .resource-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+        
+        .resource-link:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .save-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: all 0.3s;
+        }
+        
+        .save-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .info-box {
+            background: #d1ecf1;
+            border: 2px solid #0c5460;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .info-box strong {
+            color: #0c5460;
+        }
+        
+        .identity-table {
+            width: 100%;
+        }
+        
+        .identity-table td {
+            padding: 10px;
+            border: none;
+        }
+        
+        .identity-table td:first-child {
+            width: 150px;
+            font-weight: bold;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+            .save-btn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 E-LKPD CASE BASED LEARNING</h1>
+            <p>Sistem Imun: Analisis Kasus Alergi Makanan</p>
+            <p style="font-size: 14px; margin-top: 10px;">Fase F (Kelas XI) - Semester 2</p>
+        </div>
+        
+        <div class="content">
+            <!-- SECTION 1: Identitas Peserta Didik -->
+            <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <div class="section-title" style="color: white;">👤 IDENTITAS PESERTA DIDIK</div>
+                <div style="background: white; padding: 20px; border-radius: 10px; color: #333;">
+                    <table class="identity-table">
+                        <tr>
+                            <td>Nama</td>
+                            <td>: <input type="text" placeholder="Tulis nama lengkap Anda"></td>
+                        </tr>
+                        <tr>
+                            <td>Kelas</td>
+                            <td>: <input type="text" placeholder="Contoh: XI-1"></td>
+                        </tr>
+                        <tr>
+                            <td>No. Absen</td>
+                            <td>: <input type="text" placeholder="Contoh: 15"></td>
+                        </tr>
+                        <tr>
+                            <td>Kelompok</td>
+                            <td>: <input type="text" placeholder="Contoh: Kelompok 3"></td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal</td>
+                            <td>: <input type="text" placeholder="Contoh: 19 Desember 2025"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- SECTION 2: Tujuan Pembelajaran -->
+            <div class="section">
+                <div class="section-title">🎯 TUJUAN PEMBELAJARAN</div>
+                <p style="margin-bottom: 15px;">Setelah mempelajari E-LKPD ini, peserta didik diharapkan mampu:</p>
+                <ul class="tujuan-list">
+                    <li>Mengidentifikasi data sistem imun dari tabel laboratorium pada kasus alergi</li>
+                    <li>Menghitung persentase kenaikan sel imun berdasarkan data laboratorium</li>
+                    <li>Mengelompokkan tingkat keparahan gangguan sistem imun berdasarkan kriteria medis</li>
+                    <li>Menentukan strategi perhitungan untuk menganalisis efektivitas penanganan</li>
+                    <li>Menafsirkan grafik hubungan komponen sistem imun dengan kondisi kesehatan</li>
+                    <li>Menggunakan hasil perhitungan untuk menentukan kategori risiko pasien</li>
+                    <li>Menganalisis pola perubahan data sistem imun pada berbagai kondisi</li>
+                    <li>Menyimpulkan keterkaitan data numerik dengan kondisi kesehatan pasien</li>
+                    <li>Mengevaluasi ketepatan data berdasarkan kriteria medis yang relevan</li>
+                    <li>Memberikan justifikasi ilmiah yang didukung data numerik</li>
+                </ul>
+            </div>
+            
+            <!-- SECTION 3: Konsep Dasar Sistem Imun -->
+            <div class="section">
+                <div class="section-title">📖 KONSEP DASAR SISTEM IMUN</div>
+                <p style="font-style: italic; color: #666; margin-bottom: 20px;">Materi yang telah dipelajari pada Pertemuan 1</p>
+                
+                <div class="konsep-box">
+                    <h4>Apa itu Sistem Imun?</h4>
+                    <p>Sistem imun adalah sistem pertahanan tubuh yang melindungi kita dari berbagai penyakit. Sistem ini bekerja seperti tentara yang menjaga tubuh dari serangan bakteri, virus, dan kuman lainnya.</p>
+                </div>
+                
+                <div class="konsep-box">
+                    <h4>🏥 Organ-Organ Sistem Imun</h4>
+                    <div class="organ-grid">
+                        <div class="organ-card">
+                            <h5>Sumsum Tulang</h5>
+                            <p>Memproduksi sel darah putih</p>
+                            <a href="https://www.google.com/search?q=sumsum+tulang+anatomi&tbm=isch" target="_blank" class="resource-link" style="font-size: 12px; padding: 5px 10px; margin-top: 10px;">🔍 Lihat Gambar</a>
+                        </div>
+                        <div class="organ-card">
+                            <h5>Timus</h5>
+                            <p>Tempat pematangan sel T</p>
+                            <a href="https://www.google.com/search?q=timus+organ+anatomi&tbm=isch" target="_blank" class="resource-link" style="font-size: 12px; padding: 5px 10px; margin-top: 10px;">🔍 Lihat Gambar</a>
+                        </div>
+                        <div class="organ-card">
+                            <h5>Limpa</h5>
+                            <p>Menyaring darah dan menyimpan sel imun</p>
+                            <a href="https://www.google.com/search?q=limpa+organ+anatomi&tbm=isch" target="_blank" class="resource-link" style="font-size: 12px; padding: 5px 10px; margin-top: 10px;">🔍 Lihat Gambar</a>
+                        </div>
+                        <div class="organ-card">
+                            <h5>Kelenjar Getah Bening</h5>
+                            <p>Menyaring cairan tubuh dari patogen</p>
+                            <a href="https://www.google.com/search?q=kelenjar+getah+bening+anatomi&tbm=isch" target="_blank" class="resource-link" style="font-size: 12px; padding: 5px 10px; margin-top: 10px;">🔍 Lihat Gambar</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="konsep-box">
+                    <h4>Jenis-Jenis Sel Darah Putih (Leukosit)</h4>
+                    <p><strong>Neutrofil:</strong> Memakan dan menghancurkan bakteri</p>
+                    <p><strong>Limfosit:</strong> Menghasilkan antibodi untuk melawan antigen</p>
+                    <p><strong>Monosit/Makrofag:</strong> Membersihkan sel-sel mati dan patogen</p>
+                    <p><strong>Eosinofil:</strong> Melawan parasit dan berperan dalam reaksi alergi</p>
+                    <p><strong>Basofil:</strong> Melepaskan histamin saat reaksi peradangan</p>
+                </div>
+                
+                <div class="konsep-box">
+                    <h4>Dua Jenis Sistem Pertahanan Tubuh</h4>
+                    <p><strong>1. Sistem Imun Nonspesifik (Pertahanan Umum):</strong></p>
+                    <p style="margin-left: 20px;">• Kulit sebagai penghalang fisik<br>
+                    • Air mata dan saliva mengandung enzim pembunuh kuman<br>
+                    • Asam lambung membunuh bakteri<br>
+                    • Sel fagosit memakan patogen</p>
+                    
+                    <p style="margin-top: 15px;"><strong>2. Sistem Imun Spesifik (Pertahanan Khusus):</strong></p>
+                    <p style="margin-left: 20px;">• Limfosit B menghasilkan antibodi<br>
+                    • Limfosit T membunuh sel yang terinfeksi<br>
+                    • Memiliki memori imun (mengingat penyakit yang pernah menyerang)</p>
+                </div>
+                
+                <div class="media-box">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">🎥 Video Penjelasan Sistem Imun</h4>
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/wYPlc6-nnzU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <p style="margin-top: 10px; font-size: 14px; color: #666; text-align: center;">Sumber: Kemendikbud RI - Respon Imun Humoral dan Seluler</p>
+                </div>
+            </div>
+            
+            <!-- SECTION 4: Kasus -->
+            <div class="section">
+                <div class="section-title">🔬 TAHAP 1 CBL: MENETAPKAN KASUS</div>
+                
+                <div class="case-box">
+                    <div class="case-title">📋 KASUS: ALERGI MAKANAN PADA REMAJA</div>
+                    <p style="line-height: 1.8; color: #333;">
+                        <strong>Nama:</strong> Rani (16 tahun)<br><br>
+                        <strong>Keluhan:</strong> Setelah makan udang goreng di restoran seafood, Rani tiba-tiba mengalami:
+                    </p>
+                    <ul style="margin: 10px 0 10px 30px; color: #333; line-height: 1.8;">
+                        <li>Gatal-gatal di seluruh tubuh</li>
+                        <li>Muncul bentol-bentol kemerahan (urtikaria)</li>
+                        <li>Sesak napas ringan</li>
+                        <li>Mual dan pusing</li>
+                    </ul>
+                    <p style="line-height: 1.8; color: #333; margin-top: 10px;">
+                        Dokter segera melakukan pemeriksaan darah lengkap untuk mengetahui kondisi sistem imun Rani.
+                    </p>
+                </div>
+                
+                <div class="media-box">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">📸 Gambar Ilustrasi Alergi</h4>
+                    <div style="background: white; padding: 15px; border-radius: 10px; text-align: center;">
+                        <a href="https://www.google.com/search?q=alergi+kulit+urtikaria+biduran&tbm=isch" target="_blank" class="resource-link">🔍 Lihat Gambar Gejala Urtikaria (Biduran)</a>
+                        <a href="https://www.google.com/search?q=alergi+makanan+udang&tbm=isch" target="_blank" class="resource-link">🔍 Lihat Gambar Alergi Makanan</a>
+                    </div>
+                </div>
+                
+                <h4 style="color: #667eea; margin-top: 20px; margin-bottom: 10px;">📊 Data Laboratorium</h4>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Pemeriksaan</th>
+                            <th>Hasil Rani</th>
+                            <th>Nilai Normal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Leukosit</strong></td>
+                            <td>11.500 sel/mm³</td>
+                            <td>5.000-10.000 sel/mm³</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Eosinofil</strong></td>
+                            <td>950 sel/mm³</td>
+                            <td>40-400 sel/mm³</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutrofil</strong></td>
+                            <td>6.325 sel/mm³</td>
+                            <td>2.500-7.000 sel/mm³</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Limfosit</strong></td>
+                            <td>3.450 sel/mm³</td>
+                            <td>1.500-4.000 sel/mm³</td>
+                        </tr>
+                        <tr>
+                            <td><strong>IgE</strong></td>
+                            <td>580 IU/mL</td>
+                            <td>&lt;100 IU/mL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Histamin</strong></td>
+                            <td>Meningkat</td>
+                            <td>Normal</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="info-box">
+                    <strong>💡 Bantuan Materi tentang Alergi (Klik untuk membaca):</strong><br><br>
+                    <a href="https://www.alomedika.com/penyakit/alergi-dan-imunologi/alergi-makanan/patofisiologi" class="resource-link" target="_blank">📖 Patofisiologi Alergi Makanan</a>
+                    <a href="https://www.alomedika.com/penyakit/alergi-dan-imunologi/alergi-makanan" class="resource-link" target="_blank">📖 Tentang Alergi Makanan</a>
+                    <a href="https://www.halodoc.com/artikel/kenali-fungsi-eosinofil-dalam-tubuh" class="resource-link" target="_blank">🔬 Fungsi Eosinofil</a>
+                    <a href="https://wirabuana.ac.id/artikel/mekanisme-reaksi-alergi-dalam-tubuh/" class="resource-link" target="_blank">📖 Mekanisme Reaksi Alergi</a>
+                </div>
+                
+                <div class="media-box" style="margin-top: 20px;">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">🎥 Video: Mekanisme Alergi pada Tubuh Manusia</h4>
+                    <p style="color: #666; margin-bottom: 15px;">Tonton video edukatif tentang mekanisme alergi:</p>
+                    <a href="https://www.youtube.com/results?search_query=mekanisme+alergi+biologi" target="_blank" class="resource-link">🎬 Cari Video Mekanisme Alergi di YouTube</a>
+                </div>
+            </div>
+            
+            <!-- SECTION 5: Analisis Kasus -->
+            <div class="section">
+                <div class="section-title">📝 TAHAP 2 CBL: MENGANALISIS KASUS</div>
+                
+                <!-- Pertanyaan 1 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 1</span>
+                    <div class="question-text">
+                        <strong>Identifikasi dari tabel:</strong> Data laboratorium manakah yang berada di atas nilai normal? Beri tanda centang (✓) pada kotak di bawah ini!
+                    </div>
+                    <div style="margin: 15px 0;">
+                        <label style="display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer;">
+                            <input type="checkbox"> Leukosit
+                        </label>
+                        <label style="display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer;">
+                            <input type="checkbox"> Eosinofil
+                        </label>
+                        <label style="display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer;">
+                            <input type="checkbox"> Neutrofil
+                        </label>
+                        <label style="display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer;">
+                            <input type="checkbox"> Limfosit
+                        </label>
+                        <label style="display: block; padding: 10px; margin: 5px 0; background: #f8f9fa; border-radius: 5px; cursor: pointer;">
+                            <input type="checkbox"> IgE
+                        </label>
+                    </div>
+                    <textarea placeholder="Tuliskan analisis Anda tentang data yang berada di atas nilai normal..."></textarea>
+                </div>
+                
+                <!-- Pertanyaan 2 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 2</span>
+                    <div class="question-text">
+                        <strong>Hitung persentase kenaikan eosinofil Rani dari batas atas nilai normal!</strong><br><br>
+                        Rumus: <code style="background: #f8f9fa; padding: 5px 10px; border-radius: 5px; display: inline-block; margin: 5px 0;">
+                            (Hasil Rani - Batas Atas Normal) / Batas Atas Normal × 100%
+                        </code>
+                    </div>
+                    <div class="info-box" style="margin: 15px 0;">
+                        <strong>💡 Bantuan Materi (Klik untuk membaca):</strong><br><br>
+                        <a href="https://www.kompas.com/skola/read/2021/12/20/150000469/cara-menghitung-persentase-kenaikan-dan-penurunan" class="resource-link" target="_blank">📊 Cara Menghitung Persentase</a>
+                    </div>
+                    <textarea placeholder="Tuliskan perhitungan Anda dengan lengkap dan rapi...
+
+Contoh format jawaban:
+Diketahui:
+- Hasil Rani = ...
+- Batas Atas Normal = ...
+
+Perhitungan:
+...
+
+Jadi, ..."></textarea>
+                </div>
+                
+                <!-- Pertanyaan 3 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 3</span>
+                    <div class="question-text">
+                        <strong>Kelompokkan tingkat keparahan alergi Rani!</strong><br><br>
+                        Gunakan kriteria berikut:
+                    </div>
+                    <table class="data-table" style="margin: 15px 0;">
+                        <thead>
+                            <tr>
+                                <th>Tingkat Keparahan</th>
+                                <th>Eosinofil (sel/mm³)</th>
+                                <th>IgE (IU/mL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Ringan</strong></td>
+                                <td>400-600</td>
+                                <td>100-200</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sedang</strong></td>
+                                <td>600-800</td>
+                                <td>200-400</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Berat</strong></td>
+                                <td>&gt;800</td>
+                                <td>&gt;400</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <textarea placeholder="Tuliskan kategori tingkat keparahan dan jelaskan alasan berdasarkan data eosinofil dan IgE Rani..."></textarea>
+                </div>
+                
+                <!-- Pertanyaan 4 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 4</span>
+                    <div class="question-text">
+                        <strong>Analisis Efektivitas Pengobatan</strong><br><br>
+                        Setelah pengobatan 1 minggu, hasil laboratorium Rani menunjukkan:
+                        <ul style="margin: 10px 0 10px 30px;">
+                            <li>Eosinofil: 520 sel/mm³</li>
+                            <li>IgE: 280 IU/mL</li>
+                        </ul>
+                        <br>
+                        <strong>Pertanyaan:</strong> Strategi perhitungan apa yang paling tepat untuk menganalisis efektivitas pengobatan? (pilih: selisih/persentase/rata-rata/rasio). Jelaskan alasannya dan lakukan perhitungan!
+                    </div>
+                    <div class="info-box" style="margin: 15px 0;">
+                        <strong>💡 Bantuan Materi (Klik untuk membaca):</strong><br><br>
+                        <a href="https://www.ruangguru.com/blog/cara-menghitung-persentase" class="resource-link" target="_blank">📊 Menghitung Persentase Penurunan</a>
+                    </div>
+                    <textarea placeholder="Tuliskan strategi yang Anda pilih, alasan, dan perhitungannya..."></textarea>
+                </div>
+            </div>
+            
+            <!-- SECTION 6: Mencari Data Pendukung -->
+            <div class="section">
+                <div class="section-title">🔍 TAHAP 3 CBL: MENCARI DATA DAN LITERATUR PENDUKUNG</div>
+                
+                <!-- Pertanyaan 5 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 5</span>
+                    <div class="question-text">
+                        <strong>Menafsirkan Grafik Perkembangan</strong><br><br>
+                        Perhatikan pola perkembangan kadar eosinofil dan IgE Rani selama 3 minggu pengobatan berikut:
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin: 15px 0;">
+                        <strong style="color: #667eea;">Ilustrasi Grafik Perkembangan:</strong>
+                        <p style="margin-top: 15px; color: #333; line-height: 1.8;">
+                            <strong>Minggu 0:</strong> Eosinofil 950, IgE 580 (Tinggi - Gejala Berat)<br>
+                            <strong>Minggu 1:</strong> Eosinofil 520, IgE 280 (Menurun Signifikan)<br>
+                            <strong>Minggu 2:</strong> Eosinofil 380, IgE 150 (Mendekati Normal)<br>
+                            <strong>Minggu 3:</strong> Eosinofil 320, IgE 110 (Normal - Gejala Hilang)
+                        </p>
+                    </div>
+                    <div class="question-text">
+                        <strong>Pertanyaan:</strong> Tafsirkan data di atas! Bagaimana pola perubahan kadar eosinofil dan IgE selama pengobatan? Apa hubungannya dengan perbaikan gejala Rani?
+                    </div>
+                    <textarea placeholder="Tuliskan interpretasi Anda tentang pola penurunan dan hubungannya dengan kondisi kesehatan..."></textarea>
+                </div>
+            </div>
+            
+            <!-- SECTION 7: Menentukan Alternatif Penyelesaian -->
+            <div class="section">
+                <div class="section-title">💡 TAHAP 4 CBL: MENENTUKAN ALTERNATIF PENYELESAIAN</div>
+                
+                <!-- Pertanyaan 6 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 6</span>
+                    <div class="question-text">
+                        <strong>Menentukan Kategori Risiko dan Keputusan Penanganan</strong><br><br>
+                        Gunakan kriteria keputusan medis berikut:
+                    </div>
+                    <table class="data-table" style="margin: 15px 0;">
+                        <thead>
+                            <tr>
+                                <th>Kondisi</th>
+                                <th>Kategori Risiko</th>
+                                <th>Keputusan Penanganan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Eosinofil &gt;800 & IgE &gt;400</td>
+                                <td><strong>Tinggi</strong></td>
+                                <td>Rujuk ke spesialis</td>
+                            </tr>
+                            <tr>
+                                <td>Eosinofil 400-800 & IgE 200-400</td>
+                                <td><strong>Sedang</strong></td>
+                                <td>Lanjutkan antihistamin</td>
+                            </tr>
+                            <tr>
+                                <td>Eosinofil &lt;400 & IgE &lt;200</td>
+                                <td><strong>Rendah</strong></td>
+                                <td>Monitor rutin</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="question-text">
+                        <strong>Pertanyaan:</strong> Berdasarkan hasil perhitungan sebelumnya, tentukan kategori risiko dan keputusan penanganan untuk Rani pada minggu ke-0 dan minggu ke-3!
+                    </div>
+                    <textarea placeholder="Tuliskan kategori risiko dan keputusan untuk minggu ke-0 dan ke-3 dengan justifikasi..."></textarea>
+                </div>
+                
+                <!-- Pertanyaan 7 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 7</span>
+                    <div class="question-text">
+                        <strong>Menganalisis Pola Penurunan</strong><br><br>
+                        Perhatikan tabel perkembangan hasil laboratorium Rani:
+                    </div>
+                    <table class="data-table" style="margin: 15px 0;">
+                        <thead>
+                            <tr>
+                                <th>Minggu</th>
+                                <th>Eosinofil (sel/mm³)</th>
+                                <th>IgE (IU/mL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>0</strong></td>
+                                <td>950</td>
+                                <td>580</td>
+                            </tr>
+                            <tr>
+                                <td><strong>1</strong></td>
+                                <td>520</td>
+                                <td>280</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2</strong></td>
+                                <td>380</td>
+                                <td>150</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3</strong></td>
+                                <td>320</td>
+                                <td>110</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="question-text">
+                        <strong>Pertanyaan:</strong> Analisis pola penurunan eosinofil dari minggu 0→1, 1→2, 2→3. Pada periode mana penurunan paling signifikan? Apa artinya secara klinis?
+                    </div>
+                    <textarea placeholder="Hitung penurunan untuk setiap periode dan analisis maknanya..."></textarea>
+                </div>
+            </div>
+            
+            <!-- SECTION 8: Menyusun Kesimpulan -->
+            <div class="section">
+                <div class="section-title">📋 TAHAP 5 CBL: MENYUSUN KESIMPULAN</div>
+                
+                <!-- Pertanyaan 8 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 8</span>
+                    <div class="question-text">
+                        <strong>Menyusun Kesimpulan Komprehensif</strong><br><br>
+                        Buatlah kesimpulan yang menghubungkan:
+                        <ol style="margin: 10px 0 10px 30px; line-height: 1.8;">
+                            <li>Data numerik (eosinofil, IgE, persentase kenaikan)</li>
+                            <li>Gejala klinis yang dialami Rani</li>
+                            <li>Diagnosis dan rekomendasi penanganan</li>
+                        </ol>
+                    </div>
+                    <div class="info-box" style="margin: 15px 0;">
+                        <strong>💡 Bantuan Materi (Klik untuk membaca):</strong><br><br>
+                        <a href="https://www.alomedika.com/penyakit/alergi-dan-imunologi/alergi-makanan" class="resource-link" target="_blank">📖 Mekanisme Alergi Makanan</a>
+                        <a href="https://www.alomedika.com/penyakit/alergi-dan-imunologi/alergi-makanan/patofisiologi" class="resource-link" target="_blank">📖 Peran IgE dalam Alergi</a>
+                    </div>
+                    <textarea placeholder="Tuliskan kesimpulan yang menghubungkan data, gejala, dan diagnosis secara komprehensif..."></textarea>
+                </div>
+                
+                <!-- Pertanyaan 9 -->
+                <div class="question-box">
+                    <span class="question-number">Pertanyaan 9</span>
+                    <div class="question-text">
+                        <strong>Mengevaluasi Ketepatan Analisis</strong><br><br>
+                        Seorang siswa menganalisis data Rani dan menyimpulkan:
+                        <div class="case-box" style="margin: 15px 0;">
+                            <p style="font-style: italic; color: #333;">
+                                "Persentase kenaikan eosinofil Rani adalah 237,5% dan berdasarkan hal tersebut, Rani mengalami infeksi parasit (cacing) bukan alergi makanan."
+                            </p>
+                        </div>
+                        <strong>Pertanyaan:</strong> Evaluasi perhitungan dan kesimpulan tersebut!
+                        <ol style="margin: 10px 0 10px 30px; line-height: 1.8;" type="a">
+                            <li>Apakah perhitungan 237,5% benar? Tunjukkan perhitungan yang tepat!</li>
+                            <li>Apakah diagnosis infeksi parasit tepat untuk kasus Rani? Jelaskan berdasarkan:
+                                <ul style="margin-left: 20px;">
+                                    <li>Data laboratorium (IgE tinggi vs normal)</li>
+                                    <li>Gejala klinis (sesak napas, bentol vs sakit perut)</li>
+                                    <li>Riwayat pasien (setelah makan udang vs tidak)</li>
+                                </ul>
+                            </li>
+                            <li>Apa diagnosis yang benar untuk Rani?</li>
+                        </ol>
+                    </div>
+                    <div class="info-box" style="margin: 15px 0;">
+                        <strong>💡 Bantuan Materi (Klik untuk membaca):</strong><br><br>
+                        <a href="https://www.alodokter.com/membedakan-pilek-alergi-dan-pilek-karena-infeksi" class="resource-link" target="_blank">🔍 Perbedaan Alergi dan Infeksi</a>
+                        <a href="https://www.alodokter.com/membedakan-batuk-alergi-dengan-batuk-yang-lain" class="resource-link" target="_blank">🔍 Perbedaan Batuk Alergi dan Infeksi</a>
+                    </div>
+                    <textarea placeholder="Evaluasi perhitungan, analisis ketepatan diagnosis, dan berikan justifikasi ilmiah..."></textarea>
+                </div>
+                
+                <!-- Pertanyaan 10 (Bonus) -->
+                 <div class="question-box">
+                    <span class="question-number">Pertanyaan 10</span>
+                    <div class="question-text">
+                        <strong>Justifikasi Ilmiah dengan Data Numerik</strong><br><br>
+                        Berikan rekomendasi pencegahan untuk Rani agar tidak mengalami alergi serupa di masa depan. Dukung rekomendasi Anda dengan:
+                        <ul style="margin: 10px 0 10px 30px; line-height: 1.8;">
+                            <li>Data numerik dari kasus ini</li>
+                            <li>Penjelasan mekanisme kerja sistem imun</li>
+                            <li>Langkah-langkah praktis yang dapat dilakukan</li>
+                        </ul>
+                    </div>
+                    <div class="info-box" style="margin: 15px 0;">
+                        <strong>💡 Bantuan Materi (Klik untuk membaca):</strong><br><br>
+                        <a href="https://sardjito.co.id/2022/06/20/faktor-resiko-munculnya-alergi/" class="resource-link" target="_blank">📖 Faktor Risiko Alergi</a>
+                        <a href="https://www.alodokter.com/biduran" class="resource-link" target="_blank">📖 Pencegahan Biduran</a>
+                        <a href="https://hellosehat.com/alergi/penyebab-alergi/" class="resource-link" target="_blank">📖 Penyebab dan Pencegahan</a>
+                    </div>
+                    <textarea placeholder="Tuliskan rekomendasi pencegahan yang didukung data dan penjelasan ilmiah..."></textarea>
+                </div>
+            </div>
+            
+            <!-- TAHAP 6 CBL -->
+            <div class="cbl-phase">
+                <h4>🎯 TAHAP 6: MEMPRESENTASIKAN HASIL ANALISIS</h4>
+                <p>Siapkan presentasi hasil analisis kelompok Anda. Jelaskan temuan, perhitungan, dan kesimpulan dengan jelas kepada kelas.</p>
+            </div>
+            
+            <!-- TAHAP 7 CBL -->
+            <div class="cbl-phase">
+                <h4>🎯 TAHAP 7: MELAKUKAN REFLEKSI DAN REVISI</h4>
+                <p>Dengarkan masukan dari kelompok lain dan guru. Perbaiki analisis Anda jika ada kesalahan, lalu sempurnakan kesimpulan.</p>
+            </div>
+            
+            <!-- REFLEKSI -->
+            <div class="conclusion-box">
+                <h3>📝 KESIMPULAN DAN REFLEKSI</h3>
+                <p style="margin-bottom: 15px;">Setelah menyelesaikan E-LKPD, tuliskan refleksi Anda:</p>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <p style="font-weight: bold; margin-bottom: 5px;">1. Apa yang Anda pelajari dari analisis kasus alergi ini?</p>
+                    <textarea class="answer-area" placeholder="Refleksi pembelajaran..."></textarea>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <p style="font-weight: bold; margin-bottom: 5px;">2. Bagaimana kemampuan numerasi membantu memahami kondisi kesehatan?</p>
+                    <textarea class="answer-area" placeholder="Refleksi tentang numerasi..."></textarea>
+                </div>
+                
+                <div style="background: white; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                    <p style="font-weight: bold; margin-bottom: 5px;">3. Apa manfaat pembelajaran ini untuk kehidupan sehari-hari?</p>
+                    <textarea class="answer-area" placeholder="Refleksi aplikasi..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div style="text-align: center; padding: 20px; background: #f8f9fa; border-radius: 15px; margin-top: 20px;">
+                <h3 style="color: #667eea; margin-bottom: 15px;">📚 Sumber Belajar Tambahan</h3>
+                <a href="https://www.kemkes.go.id/" class="resource-link" target="_blank">🏥 Kementerian Kesehatan RI</a>
+                <a href="https://www.idai.or.id/" class="resource-link" target="_blank">👨‍⚕️ Ikatan Dokter Anak Indonesia</a>
+                <a href="https://www.alomedika.com/" class="resource-link" target="_blank">📖 Alomedika</a>
+                
+                <button class="save-btn" onclick="window.print()">💾 Simpan/Cetak E-LKPD</button>
+                
+                <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                    <strong>Catatan:</strong> Pastikan semua pertanyaan telah dijawab dengan lengkap sebelum menyimpan atau mencetak E-LKPD ini.
+                </p>
+                
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px;">
+                    <p style="color: #667eea; font-weight: bold; margin-bottom: 10px;">📝 Informasi E-LKPD</p>
+                    <p style="font-size: 14px; color: #555;">
+                        Mata Pelajaran: Biologi | Fase F (Kelas XI) | Semester 2<br>
+                        Materi: Sistem Imun - Gangguan dan Kelainan<br>
+                        Model Pembelajaran: Case Based Learning<br>
+                               Tahun Pelajaran 2025/2026
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
